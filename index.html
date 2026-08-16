@@ -285,7 +285,12 @@
       function downloadFallback() {
         clearSchemeTimer();
         if (inQQ) {
-          setStatus("没有自动打开", true);
+          setStatus("QQ 已拦截跳转，请点右上角在浏览器打开", true);
+          launched = false;
+          return;
+        }
+        if (isAndroid || isIOS) {
+          setStatus("请点按钮打开光·遇", true);
           launched = false;
           return;
         }
@@ -321,7 +326,7 @@
           if (!opened) {
             downloadFallback();
           }
-        }, 1400);
+        }, 3500);
       }
 
       function launch(auto) {
@@ -340,8 +345,7 @@
         } else if (isIOS) {
           go(CONFIG.iosUniversal);
         } else {
-          setStatus("请用手机打开此链接", true);
-          launched = false;
+          go(CONFIG.download);
         }
       }
 
